@@ -78,6 +78,8 @@ func groupAnagrams(_ strs: [String]) -> [[String]] {
     return result
 }
 
+/*Given an integer array nums and an integer k, return the k most frequent elements.
+ You may return the answer in any order.*/
 
 func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
     var resultArray = [Int]()
