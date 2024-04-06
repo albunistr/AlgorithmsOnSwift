@@ -80,22 +80,17 @@ func groupAnagrams(_ strs: [String]) -> [[String]] {
 
 
 func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
-    var k_copy = k
     var resultArray = [Int]()
     var nums_dct = [Int: Int]()
     
-    for n in nums {
-        if nums_dct[n] != nil {
-            nums_dct[n] = nums_dct[n]! + 1
-        } else {
-            nums_dct[n] = 1
-        }
+    for num in nums {
+        nums_dct[num, default: 0] += 1
     }
     
-    var swapedDct = [Int: Int]()
+    let sortedDct = nums_dct.sorted { $0.value > $1.value }
     
-    for (key, value) in nums_dct {
-        swapedDct[value] = key
+    for i in 0..<k {
+        resultArray.append(sortedDct[i].key)
     }
     
     return resultArray
@@ -121,4 +116,26 @@ func productExceptSelf(_ nums: [Int]) -> [Int] {
     return numsRes
 }
 
-productExceptSelf([1, 2, 3, 4])
+/*Given a string s containing just the characters '(', ')', '{', '}', '[' and ']',
+ determine if the input string is valid.*/
+
+func isValid(_ s: String) -> Bool {
+    var stack = [Character]()
+    guard s.count % 2 == 0 else {return false}
+    
+    for n in s {
+        
+        switch n{
+            
+        case "(": stack.append(")")
+        case "{": stack.append("}")
+        case "[": stack.append("]")
+        default:
+            if stack.isEmpty || stack.removeLast() != n {
+                return false
+            }
+        }
+    }
+    return stack.isEmpty
+}
+
