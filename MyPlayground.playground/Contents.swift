@@ -141,3 +141,98 @@ func isValid(_ s: String) -> Bool {
     return stack.isEmpty
 }
 
+/*Given a string s, return true if it is a palindrome, or false otherwise.*/
+
+func isPalindrome(_ s: String) -> Bool {
+    
+    let lowerStr = s.lowercased()
+    let filteredStr = lowerStr.filter { $0.isLetter || $0.isNumber}
+    let reversedString = String(filteredStr.reversed())
+    
+    return reversedString == filteredStr
+}
+/*Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+ 
+ Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.*/
+
+func twoSum_two(_ numbers: [Int], _ target: Int) -> [Int] {
+    var left = 0
+    var right = numbers.count - 1
+    
+    while left < right {
+        let sum = numbers[left] + numbers[right]
+        
+        if sum < target {
+            left += 1
+        } else if sum > target {
+            right -= 1
+        } else {
+            return [left + 1, right + 1]
+        }
+    }
+    return []
+}
+
+/*Given an integer array nums, return all the triplets [nums[i], nums[j],
+ nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.*/
+
+func threeSum(_ nums: [Int]) -> [[Int]] {
+    
+    var resArr = Set<[Int]>()
+    
+    let sortedNums = nums.sorted()
+    for i in 0..<sortedNums.count {
+        var k = i + 1
+        var l = nums.count - 1
+        
+        while k < l {
+            let sum = sortedNums[i] + sortedNums[k] + sortedNums[l]
+            
+            if sum > 0 {
+                l -= 1
+            } else if sum < 0 {
+                k += 1
+            } else {
+                resArr.insert([sortedNums[i], sortedNums[k], sortedNums[l]])
+                l -= 1
+                k += 1
+            }
+        }
+    }
+    return Array(resArr)
+}
+
+/*Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+ 
+ You must write an algorithm with O(log n) runtime complexity.
+
+*/
+
+func search(_ nums: [Int], _ target: Int) -> Int {
+    for n in 0..<nums.count{
+        if nums[n] == target{
+            return n
+        }
+    }
+    return -1
+}
+
+/*You are given an m x n integer matrix matrix with the following two properties:
+ 
+ Each row is sorted in non-decreasing order.
+ The first integer of each row is greater than the last integer of the previous row.
+ Given an integer target, return true if target is in matrix or false otherwise.
+
+ You must write a solution in O(log(m * n)) time complexity.*/
+
+func searchMatrix(_ matrix: [[Int]], _ target: Int) -> Bool {
+    for i in 0..<matrix.count{
+        for j in 0..<matrix[i].count {
+            if matrix[i][j] == target {
+                return true
+            }
+        }
+    }
+    return false
+}
+
