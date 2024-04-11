@@ -288,6 +288,11 @@ func lcs (_ A: [Int], _ B: [Int]) -> [Int]{
     var j = B.count
     
     while j > -1 && i > -1 {
+        print(F[i][j])
+        print("PPPPPP")
+        print(i)
+        print(j)
+        print("\n")
         if F[i][j] == F[i - 1][j]{
             i -= 1
         } else if F[i][j] == F[i][j - 1] {
