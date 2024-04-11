@@ -236,3 +236,69 @@ func searchMatrix(_ matrix: [[Int]], _ target: Int) -> Bool {
     return false
 }
 
+/*Поиск длины наибольшей общей подпоследовательности двух массивов*/
+
+func lenLcs (_ A: [Int], _ B: [Int]) -> Int {
+    var F = [[Int]]()
+    
+    for _ in 0...A.count{
+        var row = [Int]()
+        for _ in 0...B.count{
+            row.append(0)
+        }
+        F.append(row)
+    }
+    
+    for i in 1...A.count {
+        for j in 1...B.count {
+            if A[i - 1] == B[j - 1] {
+                F[i][j] = 1 + F[i - 1][j - 1]
+            } else {
+                F[i][j] = max(F[i][j - 1], F[i - 1][j])
+            }
+        }
+    }
+    
+    return F[A.count][B.count]
+}
+
+/*Поиск наибольшей общей подпоследовательности двух массивов*/
+func lcs (_ A: [Int], _ B: [Int]) -> [Int]{
+    var F = [[Int]]()
+    var result = [Int]()
+    for _ in 0...A.count{
+        var row = [Int]()
+        for _ in 0...B.count{
+            row.append(0)
+        }
+        F.append(row)
+    }
+    
+    for i in 1...A.count {
+        for j in 1...B.count {
+            if A[i - 1] == B[j - 1] {
+                F[i][j] = 1 + F[i - 1][j - 1]
+            } else {
+                F[i][j] = max(F[i][j - 1], F[i - 1][j])
+            }
+        }
+    }
+    print(F)
+    var i = A.count
+    var j = B.count
+    
+    while j > -1 && i > -1 {
+        if F[i][j] == F[i - 1][j]{
+            i -= 1
+        } else if F[i][j] == F[i][j - 1] {
+            j -= 1
+        } else {
+            result.append(A[i - 1])
+            i -= 1
+            j -= 1
+        }
+    }
+    
+    return result
+}
+lcs([1, 4, 8, 2, 3, 4], [1, 2, 3, 5, 7, 4])
