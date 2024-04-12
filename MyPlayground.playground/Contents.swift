@@ -283,22 +283,16 @@ func lcs (_ A: [Int], _ B: [Int]) -> [Int]{
             }
         }
     }
-    print(F)
     var i = A.count
     var j = B.count
     
-    while j > -1 && i > -1 {
-        print(F[i][j])
-        print("PPPPPP")
-        print(i)
-        print(j)
-        print("\n")
+    while j > 0 && i > 0 {
         if F[i][j] == F[i - 1][j]{
             i -= 1
         } else if F[i][j] == F[i][j - 1] {
             j -= 1
         } else {
-            result.append(A[i - 1])
+            result.insert(A[i - 1], at: 0)
             i -= 1
             j -= 1
         }
@@ -306,4 +300,33 @@ func lcs (_ A: [Int], _ B: [Int]) -> [Int]{
     
     return result
 }
-lcs([1, 4, 8, 2, 3, 4], [1, 2, 3, 5, 7, 4])
+
+/*Поиск длины наибольшей возрастающей подпоследовательности двух массивов*/
+
+func lengis (_ A: [Int]) -> Int {
+    var B = A.sorted()
+    
+    var F = [[Int]]()
+    
+    for _ in 0...A.count{
+        var row = [Int]()
+        for _ in 0...B.count{
+            row.append(0)
+        }
+        F.append(row)
+    }
+    
+    for i in 1...A.count {
+        for j in 1...B.count {
+            if A[i - 1] == B[j - 1] {
+                F[i][j] = 1 + F[i - 1][j - 1]
+            } else {
+                F[i][j] = max(F[i][j - 1], F[i - 1][j])
+            }
+        }
+    }
+    
+    return F[A.count][B.count]
+}
+
+lengis([1, 2, 3, 4])
