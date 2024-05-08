@@ -15,3 +15,19 @@ func search(_ nums: [Int], _ target: Int) -> Int {
     return -1
 }
 
+func search(_ nums: [Int], _ target: Int) -> Int {
+        var l = 0
+        var r = nums.count - 1
+
+        while l <= r {
+            if nums[l] == target {
+                return l
+            } else if nums[r] == target {
+                return r
+            } else {
+                l += 1
+                r -= 1
+            }
+        }
+        return -1
+    }
