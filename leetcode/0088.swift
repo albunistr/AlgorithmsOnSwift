@@ -13,5 +13,11 @@
 */
 
 func merge(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
-        
+    if nums2.isEmpty {return}
+    var j = 0
+    for i in m..<nums1.count {
+        nums1[i] = nums2[j]
+        j += 1
+    }
+    nums1 = nums1.sorted()
 }
